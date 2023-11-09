@@ -1,0 +1,19 @@
+﻿<ul class="navbar-nav">
+    @if (!User.Identity.IsAuthenticated) {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+        </li>
+    } else {
+        @* <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+            <input type="submit" class="nav-link text-dark" value="Logout">
+        </form> *@
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Logout</a>
+        </li>
+    }
+</ul>

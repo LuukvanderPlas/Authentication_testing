@@ -20,6 +20,16 @@ namespace Authentication_testing.Controllers {
             return View();
         }
 
+        [Authorize(Roles = "Role1")]
+        public IActionResult Role1() {
+            return View();
+        }
+
+        [Authorize(Roles = "Role2")]
+        public IActionResult Role2() {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error() {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

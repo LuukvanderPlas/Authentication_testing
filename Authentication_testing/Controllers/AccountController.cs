@@ -6,12 +6,15 @@ namespace Authentication_testing.Controllers {
     public class AccountController : Controller {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountController(
             UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager) {
+            SignInManager<IdentityUser> signInManager,
+            RoleManager<IdentityRole> roleManager) {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Login(string? ReturnUrl) {
@@ -21,8 +24,6 @@ namespace Authentication_testing.Controllers {
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel input) {
             if (ModelState.IsValid) {
-                //var user = new IdentityUser { UserName = input.Email, Email = input.Email }
-
                 var result = await _signInManager.PasswordSignInAsync(input.Email, input.Password, false, lockoutOnFailure: false);
                 if (result.Succeeded) {
                     //_logger.LogInformation("User logged in.");

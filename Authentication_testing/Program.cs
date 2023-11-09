@@ -1,4 +1,5 @@
 using Authentication_testing.DataAccess;
+using Authentication_testing.Seeders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,6 +40,18 @@ namespace Authentication_testing {
 
             app.UseRouting();
             app.UseAuthentication();
+
+            // Create a new scope to be able to use scoped services
+            using (var scope = app.Services.CreateScope()) {
+                var services = scope.ServiceProvider;
+                try {
+                    Task.Run(async () => await UserAndRoleSeeder.SeedData(services.GetRequiredService<UserManager<IdentityUser>>(), services.GetRequiredService<RoleManager<IdentityRole>>())).Wait();
+                } catch (Exception ex) {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while seeding the database.");
+                }
+            }
+
             app.UseAuthorization();
 
             app.MapControllerRoute(

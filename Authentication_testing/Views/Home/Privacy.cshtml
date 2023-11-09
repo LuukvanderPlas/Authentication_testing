@@ -1,12 +1,19 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
+
 <h1>@ViewData["Title"]</h1>
 
 <p>Use this page to detail your site's privacy policy.</p>
 
 Medewerker: @User.IsInRole("Medewerker")
+<br />
+<br />
 
 Manager: @User.IsInRole("Manager")
+<br />
+<br />
 
 Eigenaar: @User.IsInRole("Eigenaar")
+<br />
+<br />
